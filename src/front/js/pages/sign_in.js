@@ -20,7 +20,7 @@ export const SignIn = () => {
 				navigate("/private");
             } else {
                 // Si hay algún error, puedes manejarlo aquí
-                toast.error('error');
+                alert('Invalid email or password');
             }
             
             // Limpia los campos de email y contraseña después de iniciar sesión

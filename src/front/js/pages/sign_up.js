@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
+import { useNavigate } from "react-router-dom";
 
 export const SignUp = () => {
 	const { store, actions } = useContext(Context);
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [passwordConfirmation, setPasswordConfirmation] = useState("")
+	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
@@ -15,7 +17,7 @@ export const SignUp = () => {
 		await actions.signUp(email, password);
             setEmail('');
             setPassword('');
-			navigate("/login")
+			navigate("/signin")
 		//alert(msg)
 	}
 

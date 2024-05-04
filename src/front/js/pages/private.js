@@ -23,7 +23,7 @@ export const Private = () => {
 	return (
 		<div className="text-center mt-5">
 			<h1>Hello Rigo, you're logged, but you can logOut if you want</h1>
-        	<button onClick={handleLogOut}>Log out</button>
+        	<button className="btn btn-primary m-4" onClick={handleLogOut}>Log out</button>
 			<p>
 				<img src={rigoImageUrl} />
 			</p>
