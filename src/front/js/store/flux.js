@@ -46,7 +46,62 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
-			}
+			},
+			signIn: async (email, password) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/sign_in", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							email: email,
+							password: password
+						}),
+					});
+					const data = await resp.json();
+
+					if (resp.ok) {
+						localStorage.setItem("access_token", data.access_token);
+						return true;
+					} else {
+						// Si hay un error, lógica para manejarlo (p. ej., mostrar un mensaje de error)
+						console.log("Error signing in:", data.message);
+						return false;
+					}
+
+				} catch (error) {
+					console.log("Error signing in:", error);
+					return false;
+				}
+			},
+			signUp: async (email, password) => {
+				try {
+					const resp = await fetch(process.env.BACKEND_URL + "/api/sign_up", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							email: email,
+							password: password
+						}),
+					});
+					const data = await resp.json();
+					console.log(data);
+
+					// Actualiza el estado global con la información del usuario
+					setStore({ user: data });
+
+					return data;
+				} catch (error) {
+					console.log("Error signing up", error);
+				}
+			},
+			logOut: async () => {
+				setStore({ user: null });
+				localStorage.removeItem("access_token");
+			},
 		}
 	};
 };

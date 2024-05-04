@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export const SignIn = () => {
 	const { store, actions } = useContext(Context);
@@ -16,12 +16,16 @@ export const SignIn = () => {
 		try {
 			const msg = await actions.signIn(email, password);
 			console.log(msg);
-			if(msg['error'] == null || msg['error'] == undefined) {
-				let myToken = "aDSA45F$%!sd&sdfSDFSDFytrefERF";
-				localStorage.setItem("token", myToken);
-
-				navigate('/private');
-			}
+			if (msg) {
+				navigate("/private");
+            } else {
+                // Si hay algún error, puedes manejarlo aquí
+                toast.error('error');
+            }
+            
+            // Limpia los campos de email y contraseña después de iniciar sesión
+            setEmail('');
+            setPassword('');
 		} catch (e) {
 			console.log(e);
 		}

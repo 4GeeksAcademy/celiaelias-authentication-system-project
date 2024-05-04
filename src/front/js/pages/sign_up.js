@@ -11,9 +11,12 @@ export const SignUp = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
-		const msg = await actions.signUp(email, password, passwordConfirmation);
-
-		alert(msg)
+		//const msg = await actions.signUp(email, password, passwordConfirmation);
+		await actions.signUp(email, password);
+            setEmail('');
+            setPassword('');
+			navigate("/login")
+		//alert(msg)
 	}
 
 	return (
@@ -42,16 +45,6 @@ export const SignUp = () => {
 								id="exampleInputPassword1"
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
-							/>
-						</div>
-						<div className="mb-3">
-							<label htmlFor="exampleInputPasswordConfirmation" className="form-label">Password</label>
-							<input
-								type="password"
-								className="form-control"
-								id="exampleInputPasswordConfirmation"
-								value={passwordConfirmation}
-								onChange={(e) => setPasswordConfirmation(e.target.value)}
 							/>
 						</div>
 						<button type="submit" className="btn btn-primary">Submit</button>
